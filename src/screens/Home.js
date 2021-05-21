@@ -2,94 +2,147 @@ import React from 'react';
 import {
   View,
   Text,
-  Image,
   TouchableOpacity,
+  Image,
   TextInput,
-  ScrollView,
   FlatList,
-  Dimensions,
   StyleSheet,
-  ImageBackground,
+  ScrollView,
 } from 'react-native';
+import {COLORS, SIZES, icons, FONTS, images} from '../constants';
 import LinearGradient from 'react-native-linear-gradient';
-import {COLORS, FONTS, icons, images, SIZES} from '../constants';
+import {Svg, Polygon} from 'react-native-svg';
 
-const {width, height} = Dimensions.get('screen');
 const Home = ({navigation}) => {
-  const [selectedCategory, setSelectedCategory] = React.useState(null)
+  const [selectedCategory, setSelectedCategory] = React.useState(null);
   const [data, setData] = React.useState([
     {
       id: 0,
-      name: 'Nguyễn Văn A',
-      location: 'Quận 1',
-      YearofBirth: 1995,
-      image: {
-        uri: 'https://upanh123.com/wp-content/uploads/2021/02/hinh-nen-anh-thien-nhien.jpg',
+      name: 'Nguyen Van Teo',
+      img: {
+        uri: 'https://i.pinimg.com/originals/a8/45/76/a84576a04c1874304735604d9f47d5a4.jpg',
       },
-     
-        
-          img: {
-            uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQF6VCmOCK-sqssSlgJxAlE0MADpyX3nrLFqQ&usqp=CAU',
+      bgcolor: 'red',
+      location: 'Thu Duc',
+      menu: [
+        {
+          menuId: 1,
+          type: 'lam momg',
+          photo: {
+            uri: 'https://upload.wikimedia.org/wikipedia/commons/3/38/Polished_purple_nails_with_nail_art_on.jpg',
           },
-          title: 'làm Móng',
-          
-          price: '70 vnd',
-        
-      description: 'cắt tỉa làm móng, vệ sinh ....',
+          description:
+            'lam ve sinh cat tia mong voi nhung ky thuat hien dai nhat',
+          price: 80,
+        },
+        {
+          menuId: 2,
+          type: 'Cat tia ve sinh',
+          photo: {
+            uri: 'https://i.pinimg.com/originals/7a/0c/cd/7a0ccdc0d9ad09bca78460647be208dc.jpg',
+          },
+          description:
+            'ngam nuoc sau do tien hanh cat tia voi ky nang chuyen nghiep cua nhan vien',
+          price: 60,
+        },
+        {
+          menuId: 3,
+          type: 'dap bot ngan hot len mong',
+          photo: {
+            uri: 'https://thanhhoahomes.com/wp-content/uploads/2020/05/dia-chi-lam-nail-bien-hoa-2.jpg',
+          },
+          description:
+            'tien hanh gan mot lop hoa chat len mong sau do tien hanh gan hot',
+          price: 130,
+        },
+        {
+          menuId: 4,
+          type: 'son mong ky thiet 3D',
+          photo: {
+            uri: 'https://inail.vn/data/upload/Mau-nail-cong-so-ombre.jpg',
+          },
+          description:
+            'lay dung dich da duoc chi dinh quet mot lop mong len mong sau do tien hanh hon theo yeu cau',
+          price: 150,
+        },
+      ],
     },
     {
       id: 1,
-      name: 'Trần Văn B',
-      location: 'Quận 2',
-      YearofBirth: 1990,
-      image: {
-        uri: 'https://lh3.googleusercontent.com/proxy/DrtR_1exCvNflwj-YHCySw9CSqbqbWkSumO3xxXkXh9L8zd3WmOGZfY5yY3PAK4co36UbXbbvnJ8UoXd-VjIa0MBABKL_xoI7FOs7PNXWJQwCqU6JU40gB3watMvOtvTNA',
+      name: 'Nguyen Thi Cam Thy',
+      img: {
+        uri: 'https://biettuot.info/wp-content/uploads/2021/03/tron-bo-anh-thien-nhien-chat-luong-cao-2k-4k-lam-hinh-nen-desktop-1.jpg',
       },
-      service:[
+      bgcolor: 'yellow',
+      location: 'Quan 9',
+      menu: [
         {
-          image: {
-            uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0wOUfVFuOhhM9PwBmp54cbpBKmhweauOrUg&usqp=CAU',
+          menuId: 5,
+          type: 'dap bot ngan hot len mong',
+          photo: {
+            uri: 'https://thanhhoahomes.com/wp-content/uploads/2020/05/dia-chi-lam-nail-bien-hoa-2.jpg',
           },
-          title: 'Sơn móng',
-          description: 'cắt tỉa làm móng, vệ sinh ....',
-          price: '60 vnd',
+          description:
+            'tien hanh gan mot lop hoa chat len mong sau do tien hanh gan hot',
+          price: 130,
+        },
+        {
+          menuId: 6,
+          type: 'Thieu theo yeu cau',
+          photo: {
+            uri: 'https://znews-photo.zadn.vn/w660/Uploaded/pnbcuhbatgunb/2021_01_29/nail_1.jpg',
+          },
+          description:
+            'sau khi nhan duoc su yeu cau tu khach hang tien hanh lam',
+          price: 200,
         },
       ],
     },
     {
       id: 2,
-      name: 'Nguyễn Văn Tèo',
-      location: 'Thủ Đức',
-      YearofBirth: 1989,
-      image: {
-        uri: 'https://www.thiennhien.net/wp-content/uploads/2020/04/240420_dadangsinhhoc.jpg',
-      },
-      
-        
-          img: {
-            uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAd-yPhXuFkf3lXd00PTrYdElDKluAgr7lHg&usqp=CAU',
-          },
-          title: 'đắp kiểu móng',
-          description: 'cắt tỉa làm móng, vệ sinh ....',
-          price: '150 vnd',
-       
-    },
-    {
-      id: 3,
-      name: 'Nguyễn Văn Tí',
-      location: 'Quận 9',
-      YearofBirth: 1993,
-      image: {
+      name: 'Tran Thi Thanh',
+      img: {
         uri: 'https://portal.vtc.gov.vn/Storage/nguyenletan/attachfiles_82/THIEN_NHIEN_V_NAM_banner/THIEN%20NHIEN%20V%20NAM%20banner.jpg',
       },
-      service: [
+      bgcolor: 'blue',
+      location: 'Di an binh duong',
+      menu: [
         {
-          img: {
-            uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPBtUzyDZeazOxTrfvGsuxVCzcVOZaxZ8y3A&usqp=CAU',
+          menuId: 7,
+          type: 'Ve mong theo yeu cau khach hang',
+          photo: {uri: 'https://i.ytimg.com/vi/t-5Rs5HszVY/maxresdefault.jpg'},
+          description: 'Tien hanh lam ve sinh de chuan bi cho viec ve mong',
+          price: 250,
+        },
+        {
+          menuId: 8,
+          type: 'dap bot ngan hot len mong',
+          photo: {
+            uri: 'https://thanhhoahomes.com/wp-content/uploads/2020/05/dia-chi-lam-nail-bien-hoa-2.jpg',
           },
-          title: 'gắng hột',
-          description: 'cắt tỉa làm móng, vệ sinh ....',
-          price: '200 vnd',
+          description:
+            'tien hanh gan mot lop hoa chat len mong sau do tien hanh gan hot',
+          price: 130,
+        },
+        {
+          menuId: 9,
+          type: 'son mong ky thiet 3D',
+          photo: {
+            uri: 'https://inail.vn/data/upload/Mau-nail-cong-so-ombre.jpg',
+          },
+          description:
+            'lay dung dich da duoc chi dinh quet mot lop mong len mong sau do tien hanh hon theo yeu cau',
+          price: 150,
+        },
+        {
+          menuId: 10,
+          type: 'Thieu theo yeu cau',
+          photo: {
+            uri: 'https://znews-photo.zadn.vn/w660/Uploaded/pnbcuhbatgunb/2021_01_29/nail_1.jpg',
+          },
+          description:
+            'sau khi nhan duoc su yeu cau tu khach hang tien hanh lam',
+          price: 200,
         },
       ],
     },
@@ -173,172 +226,127 @@ const Home = ({navigation}) => {
       </View>
     );
   }
-  function renderData() {
-    function renderItem(item, index) {
-      var destinationStyle = {};
-      if (index == 0) {
-        destinationStyle = {
-          marginLeft: SIZES.padding,
-        };
-      }
-      return (
-        <View style={{marginTop: SIZES.padding}}>
-          <View style={styles.styleimg}>
-            <TouchableOpacity
-              style={{
-                justifyContent: 'center',
-                marginHorizontal: SIZES.base,
-                ...destinationStyle,
-                ...styles.shadow,
-              }}
-              onPress={() => {
-                navigation.navigate('Profile', item);
-              }}>
-              <Image
-                source={item.image}
-                resizeMode="contain"
-                style={{
-                  width: 150,
-                  height: 150,
-                  borderRadius: 25,
-                }}
-              />
-              <View
-                style={{
-                  flexDirection: 'row',
-                  marginTop: SIZES.padding,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}>
-                <Text style={{textAlign:'center',color: COLORS.red, ...FONTS.body3}}>
-                  {item.name}
-                </Text>
-              </View>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  marginTop: SIZES.padding,
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  marginBottom: SIZES.padding,
-                }}>
-                <Text style={{color: COLORS.red, ...FONTS.body3}}>
-                  {item.location}
-                </Text>
-                <Text style={{color: COLORS.red, ...FONTS.body3}}>
-                  {item.YearofBirth}
-                </Text>
-              </View>
-            </TouchableOpacity>
-          </View>
-        </View>
-      );
+  function renderItem({item, index}) {
+    var styleInfor = {};
+    if (index == 0) {
+      styleInfor = {marginLeft: SIZES.padding};
     }
     return (
-      <View style={{flex: 1}}>
-        <FlatList
-          horizontal
-          showsVerticalScrollIndicator={false}
-          data={data}
-          keyExtractor={item => item.id.toString()}
-          renderItem={({item, index}) => renderItem(item, index)}
-        />
-      </View>
-    );
-  }
-  function renderimageTitle() {
-    return (
-      <View>
-        <View
-          style={{padding: SIZES.padding, backgroundColor: COLORS.lightGray2}}>
-          <Text style={{...FONTS.h3, color: COLORS.primary}}>
-            INCOMING EXPENSES
-          </Text>
-          <Text style={{...FONTS.body4, color: COLORS.darkgray}}>
-            Tota: {data.length}
-          </Text>
-        </View>
-      </View>
-    );
-  }
-
-  function renderimage() {
-    const renderItem = ({item, index}) => {
-      return (
-        <View
+      <View
+        style={{
+          height: 0,
+        }}>
+        <TouchableOpacity
           style={{
-            width: 300,
-            marginRight: SIZES.padding,
-            marginLeft: index == 0 ? SIZES.padding : 0,
-            marginVertical: SIZES.radius,
-            borderRadius: SIZES.radius,
-            backgroundColor: COLORS.white,
-            ...styles.shadow,
+            height: 240,
+            width: 180,
+            justifyContent: 'center',
+            marginHorizontal: SIZES.base,
+          }}
+          onPress={() => {
+            setSelectedCategory({item});
           }}>
+          <Text style={{color: COLORS.green, ...FONTS.h4, ...styleInfor}}>
+            Infor
+          </Text>
           <View
-            style={{
-              flexDirection: 'row',
-              padding: SIZES.padding,
-              alignItems: 'center',
-            }}>
+            style={[
+              {
+                flex: 1,
+                justifyContent: 'flex-end',
+                marginTop: SIZES.base,
+                borderRadius: 10,
+                marginRight: SIZES.padding,
+                paddingLeft: SIZES.radius,
+                paddingRight: SIZES.padding,
+                paddingBottom: SIZES.radius,
+                backgroundColor: COLORS.yellow,
+              },
+              styles.shadow,
+            ]}>
             <View
               style={{
-                height: 50,
-                width: 50,
-                borderRadius: 25,
-                backgroundColor: COLORS.lightGray,
-                alignItems: 'center',
-                justifyContent: 'center',
-                marginRight: SIZES.base,
+                height: '25%',
+                width: '100%',
+                justifyContent: 'space-between',
+                marginTop: SIZES.padding,
               }}>
+              <Text style={{color: COLORS.white, ...FONTS.body3}}>
+                {item.name}
+              </Text>
+            </View>
+            <View
+              style={{flexDirection: 'row', justifyContent: 'space-evenly'}}>
               <Image
-                source={item.img}
+                source={icons.location}
+                resizeMode="center"
                 style={{
-                  width: width / 8,
-                  height: height / 16,
-                  borderRadius: 10,
+                  width: 29,
+                  height: 29,
                 }}
               />
+              <Text
+                style={{color: COLORS.black, ...FONTS.h3, textAlign: 'center'}}>
+                {item.location}
+              </Text>
             </View>
-            <Text style={{...FONTS.h3, color: COLORS.purple}}>
-              {item.title}
-            </Text>
-          </View>
-          <View style={{paddingHorizontal: SIZES.padding}}>
-            <Text style={{...FONTS.h2}}>{item.title}</Text>
-            <Text
-              style={{
-                ...FONTS.body3,
-                flexWrap: 'wrap',
-                color: COLORS.darkgray,
-              }}>
-              {item.description}
-            </Text>
-            <Text style={{marginTop: SIZES.padding, ...FONTS.h4}}>
-              Location
-            </Text>
           </View>
           <View
             style={{
-              height: 50,
-              alignItems: 'center',
-              justifyContent: 'center',
-              borderBottomStartRadius: SIZES.radius,
-              borderBottomEndRadius: SIZES.radius,
-              backgroundColor: COLORS.secondary,
+              position: 'absolute',
+              top: 30,
+              width: '95%',
+              right: 0,
+              height: '100%',
             }}>
-            <Text style={{color: COLORS.white, ...FONTS.body3}}>
-              {item.price}
-            </Text>
+            <Svg height="100%" width="100%">
+              <Polygon points="0,0 160,0 160,80" fill="white" />
+            </Svg>
           </View>
-        </View>
+          <Image
+            source={item.img}
+            resizeMode="cover"
+            style={{
+              position: 'absolute',
+              top: 35,
+              right: 0,
+              width: '90%',
+              height: 75,
+              borderRadius: 30,
+              transform: [{rotate: '-17deg'}],
+            }}
+          />
+        </TouchableOpacity>
+      </View>
+    );
+  }
+  function renderTitle() {
+    return (
+      <View
+        style={{padding: SIZES.padding /3, backgroundColor: COLORS.lightGreen}}>
+        <Text style={{...FONTS.h3, color: COLORS.primary}}>INFOR USER</Text>
+        <Text style={{...FONTS.body4, color: COLORS.darkgray}}>
+          {data.length} User
+        </Text>
+      </View>
+    );
+  }
+  function renderdatainfor() {
+    let allMenu  =  selectedCategory ? selectedCategory.menu:[]
+    const renderItem = ({item, index}) => {
+      return (
+       <View style ={{
+         backgroundColor:'red'
+       }}>
+         <Text>jjjjj</Text>
+       </View>
       );
     };
     return (
       <View>
-        {renderimageTitle()}
+        {renderTitle()}
         <FlatList
-          data={data}
+          data={allMenu}
           renderItem={renderItem}
           keyExtractor={item => `${item.id}`}
           horizontal
@@ -348,7 +356,7 @@ const Home = ({navigation}) => {
     );
   }
   return (
-    <View style={{flex: 1, backgroundColor: COLORS.lightRed}}>
+    <View style={{flex: 1, backgroundColor: COLORS.lightpurple}}>
       {renderHeader()}
       <Text
         style={{
@@ -357,43 +365,30 @@ const Home = ({navigation}) => {
         }}>
         Welcome to our service.
       </Text>
-      <ScrollView>
-        {renderData()}
-        {renderimage()}
+      <FlatList
+        horizontal
+        showsVerticalScrollIndicator={false}
+        data={data}
+        renderItem={renderItem}
+        keyExtractor={item => `${item.id}`}
+      />
+      <ScrollView contentContainerStyle={{marginTop: SIZES.padding}}>
+        <View>{renderdatainfor()}</View>
       </ScrollView>
     </View>
   );
 };
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: COLORS.white,
-  },
   shadow: {
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
       height: 2,
     },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
+    shadowOpacity: 0.29,
+    shadowRadius: 4.89,
 
-    elevation: 5,
-  },
-  styleimg: {
-    height: height / 4,
-    width: width / 2,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: COLORS.lightGreen,
-    shadowOffset: {
-      width: 5,
-      height: 10,
-    },
-    shadowColor: 'black',
-    shadowOpacity: 0.5,
-    borderRadius: 6,
-    margin: SIZES.padding * 2,
+    elevation: 7,
   },
 });
 export default Home;

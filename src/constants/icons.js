@@ -38,6 +38,7 @@ const taxi = require("../assets/icons/taxi_icon.png");
 const train = require("../assets/icons/train_icon.png");
 const villa = require("../assets/icons/villa_icon.png");
 const wind = require("../assets/icons/wind_icon.png");
+const location = require('../assets/icons/location.png')
 
 
 export default {
@@ -82,4 +83,5 @@ export default {
     train,
     villa,
     wind,
+    location
 }
