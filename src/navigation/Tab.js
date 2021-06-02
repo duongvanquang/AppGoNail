@@ -8,7 +8,7 @@ import {
 import {isIphoneX} from 'react-native-iphone-x-helper';
 import Svg, {Path} from 'react-native-svg';
 import Home from '../screens/Home';
-import Payment from '../screens/Payment';
+import Filter from '../screens/Filter'
 import Profile from '../screens/Profile';
 
 const Tab = createBottomTabNavigator();
@@ -127,8 +127,8 @@ const Tabs = () => {
         }}
       />
       <Tab.Screen
-        name="Payment"
-        component={Payment}
+        name="Filter"
+        component={Filter}
         options={{
           tabBarIcon: ({focused}) => (
             <Image

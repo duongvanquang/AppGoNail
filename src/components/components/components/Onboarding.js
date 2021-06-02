@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import {icons, images, SIZES} from '../constants';
 import Swiper from 'react-native-swiper';
-import {COLORS,FONTS} from '../constants';
+import {COLORS} from '../constants';
 import LinearGradient from 'react-native-linear-gradient';
 
 const {width, height} = Dimensions.get('screen');

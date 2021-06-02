@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import axios from 'axios';
 import {
   View,
@@ -9,17 +9,33 @@ import {
   Image,
   TouchableOpacity,
   ScrollView,
+  Dimensions,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {COLORS, images, SIZES, FONTS, icons} from '../constants';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import GetLocation from 'react-native-get-location';
 import {useEffect} from 'react';
 
 const isLogin = 'IS_LOGIN';
+const {width, height} = Dimensions.get('screen')
 const Login = ({navigation}) => {
   const [showPassword, setShowPassword] = React.useState(false);
   const [username, setUserName] = React.useState(false);
   const [password, setPassword] = React.useState(false);
+  const [location, setLocation] = useState(null);
+
+  useEffect(() => {
+    GetLocation.getCurrentPosition({
+      enableHighAccuracy: true,
+      timeout: 15000,
+    })
+      .then(location => {
+        setLocation(location);
+        console.log(location)
+      })
+      .catch(error => {});
+  }, []);
   useEffect(() => {
     getData();
   }, []);
@@ -53,7 +69,8 @@ const Login = ({navigation}) => {
           source={images.Logo}
           resizeMode="contain"
           style={{
-            width: '60%',
+            width: width / 1.7,
+            
           }}
         />
       </View>
@@ -146,6 +163,7 @@ const Login = ({navigation}) => {
               const body = {
                 username: username,
                 password: password,
+                location,
               };
               axios({
                 method: 'post',
@@ -187,11 +205,12 @@ const Login = ({navigation}) => {
                 method: 'post',
                 url: 'https://appdatphong.herokuapp.com/signup',
                 data: body,
+                location,
               })
                 .then(function ({data}) {
                   console.log({data});
                   alert('Chúc Mừng bạn đã tạo tài khoản thành công');
-                  navigation.navigate('Onboarding');
+                  navigation.navigate('Home');
                 })
                 .catch(function (error) {
                   console.log(error);

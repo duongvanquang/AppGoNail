@@ -8,11 +8,13 @@ import {
   FlatList,
   StyleSheet,
   ScrollView,
+  Dimensions,
 } from 'react-native';
 import {COLORS, SIZES, icons, FONTS, images} from '../constants';
 import LinearGradient from 'react-native-linear-gradient';
 import {Svg, Polygon} from 'react-native-svg';
 
+const {width, height} = Dimensions.get('screen');
 const Home = ({navigation}) => {
   const [selectedCategory, setSelectedCategory] = React.useState(null);
   const [data, setData] = React.useState([
@@ -146,13 +148,34 @@ const Home = ({navigation}) => {
         },
       ],
     },
+    {
+      id: 4,
+      name: 'Nguyen Van Teo',
+      img: {
+        uri: 'https://i.pinimg.com/originals/a8/45/76/a84576a04c1874304735604d9f47d5a4.jpg',
+      },
+      bgcolor: 'red',
+      location: 'Thu Duc',
+      menu: [
+        {
+          menuId: 1,
+          type: 'lam mong',
+          photo: {
+            uri: 'https://upload.wikimedia.org/wikipedia/commons/3/38/Polished_purple_nails_with_nail_art_on.jpg',
+          },
+          description:
+            'lam ve sinh cat tia mong voi nhung ky thuat hien dai nhat',
+          price: 80,
+        },
+      ],
+    },
   ]);
   function renderHeader() {
     return (
-      <View style={{height: '20%', backgroundColor: COLORS.white}}>
+      <View style={{ backgroundColor: COLORS.white}}>
         <View
           style={{
-            flex: 1,
+            height: 150,
             borderBottomLeftRadius: 50,
             borderBottomRightRadius: 50,
             backgroundColor: COLORS.red,
@@ -164,10 +187,10 @@ const Home = ({navigation}) => {
             }}>
             <TouchableOpacity
               onPress={() => {
-                navigation.navigate('Profile');
+                navigation.replace('Login');
               }}>
               <Image
-                source={icons.menu}
+                source={icons.back}
                 resizeMode="contain"
                 style={{width: 30, height: 30}}
               />
@@ -181,7 +204,7 @@ const Home = ({navigation}) => {
               <Text style={{color: COLORS.yellow, ...FONTS.h2}}>Go Nail</Text>
               <TouchableOpacity
                 onPress={() => {
-                  navigation.navigate('Profile');
+                  navigation.navigate('Notification');
                 }}>
                 <Image
                   source={icons.bell}
@@ -211,147 +234,57 @@ const Home = ({navigation}) => {
               flexDirection: 'row',
               alignItems: 'center',
             }}>
-            <TextInput
-              placeholder="Search"
-              placeholderTextColor="#b1e5d3"
-              style={{
-                fontWeight: 'bold',
-                fontSize: 18,
-                width: 260,
-              }}
-            />
-            <Image source={icons.search} style={{width: 20, height: 20}} />
+            <TouchableOpacity
+              style={{flexDirection: 'row'}}
+              onPress={() => {
+                navigation.navagate('Filter', item);
+              }}>
+              <TextInput focusable ={true}
+                placeholder="Search"
+                placeholderTextColor="#b1e5d3"
+                style={{
+                  fontWeight: 'bold',
+                  fontSize: 18,
+                  width: 260,
+                  paddingVertical: 0
+                }}
+              />
+              <Image source={icons.search} style={{width: 20, height: 20}} />
+            </TouchableOpacity>
           </View>
         </LinearGradient>
       </View>
     );
   }
-  function renderItem({item, index}) {
-    var styleInfor = {};
-    if (index == 0) {
-      styleInfor = {marginLeft: SIZES.padding};
-    }
+  function renderItem({item}) {
     return (
       <View
-        style={{
-          height: 0,
-        }}>
+        style={[
+          {flex: 1, justifyContent: 'center', alignItems: 'center'},
+          styles.shadow,
+        ]}>
         <TouchableOpacity
-          style={{
-            height: 240,
-            width: 180,
-            justifyContent: 'center',
-            marginHorizontal: SIZES.base,
-          }}
           onPress={() => {
-            setSelectedCategory({item});
+            navigation.navigate('Detail', item);
           }}>
-          <Text style={{color: COLORS.green, ...FONTS.h4, ...styleInfor}}>
-            Infor
-          </Text>
-          <View
-            style={[
-              {
-                flex: 1,
-                justifyContent: 'flex-end',
-                marginTop: SIZES.base,
-                borderRadius: 10,
-                marginRight: SIZES.padding,
-                paddingLeft: SIZES.radius,
-                paddingRight: SIZES.padding,
-                paddingBottom: SIZES.radius,
-                backgroundColor: COLORS.yellow,
-              },
-              styles.shadow,
-            ]}>
-            <View
-              style={{
-                height: '25%',
-                width: '100%',
-                justifyContent: 'space-between',
-                marginTop: SIZES.padding,
-              }}>
-              <Text style={{color: COLORS.white, ...FONTS.body3}}>
-                {item.name}
-              </Text>
-            </View>
-            <View
-              style={{flexDirection: 'row', justifyContent: 'space-evenly'}}>
-              <Image
-                source={icons.location}
-                resizeMode="center"
-                style={{
-                  width: 29,
-                  height: 29,
-                }}
-              />
-              <Text
-                style={{color: COLORS.black, ...FONTS.h3, textAlign: 'center'}}>
-                {item.location}
-              </Text>
-            </View>
-          </View>
-          <View
-            style={{
-              position: 'absolute',
-              top: 30,
-              width: '95%',
-              right: 0,
-              height: '100%',
-            }}>
-            <Svg height="100%" width="100%">
-              <Polygon points="0,0 160,0 160,80" fill="white" />
-            </Svg>
-          </View>
           <Image
             source={item.img}
-            resizeMode="cover"
             style={{
-              position: 'absolute',
-              top: 35,
-              right: 0,
-              width: '90%',
-              height: 75,
-              borderRadius: 30,
-              transform: [{rotate: '-17deg'}],
+              width: width / 2.2,
+              height: height / 5,
+              margin: SIZES.padding,
+              borderRadius: 10,
             }}
           />
+          <Text
+            style={{
+              color: COLORS.red,
+              ...FONTS.body3,
+              textAlign: 'center',
+            }}>
+            {item.name}
+          </Text>
         </TouchableOpacity>
-      </View>
-    );
-  }
-  function renderTitle() {
-    return (
-      <View
-        style={{padding: SIZES.padding /3, backgroundColor: COLORS.lightGreen}}>
-        <Text style={{...FONTS.h3, color: COLORS.primary}}>INFOR USER</Text>
-        <Text style={{...FONTS.body4, color: COLORS.darkgray}}>
-          {data.length} User
-        </Text>
-      </View>
-    );
-  }
-  function renderdatainfor() {
-    let allMenu  =  selectedCategory ? selectedCategory.menu:[]
-    const renderItem = ({item, index}) => {
-      return (
-       <View style ={{
-         backgroundColor:'red'
-       }}>
-         <Text>jjjjj</Text>
-       </View>
-      );
-    };
-    return (
-      <View>
-        {renderTitle()}
-        <FlatList
-          data={allMenu}
-          renderItem={renderItem}
-          keyExtractor={item => `${item.id}`}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-        />
       </View>
     );
   }
@@ -365,16 +298,15 @@ const Home = ({navigation}) => {
         }}>
         Welcome to our service.
       </Text>
-      <FlatList
-        horizontal
-        showsVerticalScrollIndicator={false}
-        data={data}
-        renderItem={renderItem}
-        keyExtractor={item => `${item.id}`}
-      />
-      <ScrollView contentContainerStyle={{marginTop: SIZES.padding}}>
-        <View>{renderdatainfor()}</View>
-      </ScrollView>
+      <View style={{flex: 1, justifyContent: 'space-evenly'}}>
+        <FlatList
+          showsVerticalScrollIndicator={false}
+          data={data}
+          renderItem={renderItem}
+          keyExtractor={item => `${item.id}`}
+          numColumns={2}
+        />
+      </View>
     </View>
   );
 };
