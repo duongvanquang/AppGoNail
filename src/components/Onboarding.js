@@ -75,7 +75,7 @@ const Onboarding = ({navigation}) => {
             },
           ]}
           onPress={() => {
-            navigation.navigate('Login');
+            navigation.navigate('UserOrClient');
           }}>
           <LinearGradient
             style={{

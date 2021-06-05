@@ -8,6 +8,7 @@ import {
   Dimensions,
   Alert,
   StyleSheet,
+  Modal,
 } from 'react-native';
 import {COLORS, FONTS, icons, SIZES} from '../constants';
 
@@ -172,8 +173,33 @@ const Notification = ({route, navigation}) => {
           console.log(defaultRating)
           }}>
           <Text style={styles.buttonTextStyle}>
-            Get Selected Value
+          Comment
           </Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress ={() =>{
+           Alert.alert(
+            "Huỷ Giao Dịch",
+            "Chắc Chắn Là Bạn Muốn Huỷ Giao Dịch Này",
+            [
+              {
+                text: "Cancel",
+                onPress: () => console.log("Cancel Pressed"),
+                style: "cancel"
+              },
+              { text: "OK", onPress: () => {navigation.navigate('Home'),console.log("Voucher")}}  
+            ]
+          );
+        }}>
+          <View style ={{ justifyContent:'center', 
+          alignItems:'center', backgroundColor:COLORS.primary,
+          marginTop:SIZES.padding, borderRadius:5,shadowOffset: {
+            width: 5,
+            height: 10,
+          },
+          shadowColor: 'black',
+          shadowOpacity: 0.5,}}>
+          <Text style  ={{margin:SIZES.padding,...FONTS.body3}}>Cancel Transaction</Text>
+          </View>
         </TouchableOpacity>
       </View>
     );
@@ -216,11 +242,18 @@ const styles = StyleSheet.create({
     marginTop: 30,
     padding: 15,
     backgroundColor: '#8ad24e',
-    borderRadius:5
+    borderRadius:5,
+    shadowOffset: {
+      width: 5,
+      height: 10,
+    },
+    shadowColor: 'black',
+    shadowOpacity: 0.5,
   },
   buttonTextStyle: {
-    color: '#fff',
+    color: COLORS.black,...FONTS.body3,
     textAlign: 'center',
+    
   },
 });
 export default Notification;

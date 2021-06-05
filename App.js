@@ -12,6 +12,9 @@ import {createStore} from 'redux';
 import {combineReducers} from 'redux';
 import {Provider} from 'react-redux';
 import Evaluate from './src/screens/Evaluate';
+import UserOrClient from './src/screens/UserOrClient'
+import LoginUser from './src/components/LoginUser';
+import MenuUser from './src/screens/MenuUser'
 
 
 const reducers = combineReducers({
@@ -36,6 +39,9 @@ const App = () => {
               <Stack.Screen name="Payment" component={Payment} />
               <Stack.Screen name="Notification" component={Notification} />
               <Stack.Screen name="Evaluate" component={Evaluate} />
+              <Stack.Screen name="UserOrClient" component={UserOrClient} />
+              <Stack.Screen name="LoginUser" component={LoginUser} />
+              <Stack.Screen name="MenuUser" component={MenuUser} />
             </Stack.Navigator>
           </NavigationContainer>
         </View>
