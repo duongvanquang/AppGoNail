@@ -13,7 +13,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import Task from '../components/Task';
 import {COLORS} from '../constants';
 
-const MenuUser = () => {
+const MenuUser = ({navigation}) => {
   const [task, setTask] = useState();
   const [taskItems, setTaskItems] = useState([]);
   const handleAddTask = () => {
@@ -56,6 +56,13 @@ const MenuUser = () => {
         <TouchableOpacity onPress={() => handleAddTask()}>
           <View style={styles.addWrapper}>
             <Text style={styles.addText}>+</Text>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity onPress= {() =>{
+          navigation.navigate('UserOrClient')
+        }}>
+          <View style  ={ styles.addWrapper}>
+          <Text style  ={ styles.addText}>Out</Text>
           </View>
         </TouchableOpacity>
       </KeyboardAvoidingView>

@@ -9,41 +9,44 @@ import {
   Alert,
   StyleSheet,
   Modal,
+  TextInput,
+  ScrollView,
 } from 'react-native';
 import {COLORS, FONTS, icons, SIZES} from '../constants';
 
 const {width, height} = Dimensions.get('screen');
 const Notification = ({route, navigation}) => {
+  const [comment, setComment] = React.useState(false);
   const Thongbao = route?.params?.Thongbao || [];
   const [defaultRating, setDefaultRating] = useState(0);
   const [maxRating, setMaxRating] = useState([1, 2, 3, 4, 5]);
   const starImageFilled =
-  'https://raw.githubusercontent.com/AboutReact/sampleresource/master/star_filled.png';
+    'https://raw.githubusercontent.com/AboutReact/sampleresource/master/star_filled.png';
   const starImageCorner =
     'https://raw.githubusercontent.com/AboutReact/sampleresource/master/star_corner.png';
-    const CustomRatingBar = () => {
-      return (
-        <View style={styles.customRatingBarStyle}>
-          {maxRating.map((item, key) => {
-            return (
-              <TouchableOpacity
-                activeOpacity={0.7}
-                key={item}
-                onPress={() => setDefaultRating(item)}>
-                <Image
-                  style={styles.starImageStyle}
-                  source={
-                    item <= defaultRating
-                      ? {uri: starImageFilled}
-                      : {uri: starImageCorner}
-                  }
-                />
-              </TouchableOpacity>
-            );
-          })}
-        </View>
-      );
-    };
+  const CustomRatingBar = () => {
+    return (
+      <View style={styles.customRatingBarStyle}>
+        {maxRating.map((item, key) => {
+          return (
+            <TouchableOpacity
+              activeOpacity={0.7}
+              key={item}
+              onPress={() => setDefaultRating(item)}>
+              <Image
+                style={styles.starImageStyle}
+                source={
+                  item <= defaultRating
+                    ? {uri: starImageFilled}
+                    : {uri: starImageCorner}
+                }
+              />
+            </TouchableOpacity>
+          );
+        })}
+      </View>
+    );
+  };
   function renderItem({item}) {
     return (
       <View
@@ -163,44 +166,75 @@ const Notification = ({route, navigation}) => {
         </View>
         {CustomRatingBar()}
         <Text style={styles.textStyle}>
-        {defaultRating} / {Math.max.apply(null, maxRating)}
+          {defaultRating} / {Math.max.apply(null, maxRating)}
         </Text>
+        <ScrollView>
+          <TextInput
+            style={{
+              margin: SIZES.padding,
+              borderWidthColor: COLORS.green,
+              borderWidth: 0.3,
+              height: 80,
+              width: 200,
+              color: COLORS.black, paddingHorizontal: 10,
+            }}
+            textContentType='emailAddress'
+            keyboardType='email-address'
+            placeholder="Enter Comment"
+            value={comment}
+            onChangeText={setComment}
+          />
+        
         <TouchableOpacity
           activeOpacity={0.7}
           style={styles.buttonStyle}
-          onPress={() =>{ navigation.navigate('Home');
-          alert(defaultRating)
-          console.log(defaultRating)
+          onPress={() => {
+            navigation.navigate('Home');
+            alert(defaultRating);
+            console.log(defaultRating,comment);
           }}>
-          <Text style={styles.buttonTextStyle}>
-          Comment
-          </Text>
+          <Text style={styles.buttonTextStyle}>Comment</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress ={() =>{
-           Alert.alert(
-            "Huỷ Giao Dịch",
-            "Chắc Chắn Là Bạn Muốn Huỷ Giao Dịch Này",
-            [
-              {
-                text: "Cancel",
-                onPress: () => console.log("Cancel Pressed"),
-                style: "cancel"
+        <TouchableOpacity
+          onPress={() => {
+            Alert.alert(
+              'Huỷ Giao Dịch',
+              'Chắc Chắn Là Bạn Muốn Huỷ Giao Dịch Này',
+              [
+                {
+                  text: 'Cancel',
+                  onPress: () => console.log('Cancel Pressed'),
+                  style: 'cancel',
+                },
+                {
+                  text: 'OK',
+                  onPress: () => {
+                    navigation.navigate('Home'), console.log('Voucher');
+                  },
+                },
+              ],
+            );
+          }}>
+          <View
+            style={{
+              justifyContent: 'center',
+              alignItems: 'center',
+              backgroundColor: COLORS.primary,
+              marginTop: SIZES.padding,
+              borderRadius: 5,
+              shadowOffset: {
+                width: 5,
+                height: 10,
               },
-              { text: "OK", onPress: () => {navigation.navigate('Home'),console.log("Voucher")}}  
-            ]
-          );
-        }}>
-          <View style ={{ justifyContent:'center', 
-          alignItems:'center', backgroundColor:COLORS.primary,
-          marginTop:SIZES.padding, borderRadius:5,shadowOffset: {
-            width: 5,
-            height: 10,
-          },
-          shadowColor: 'black',
-          shadowOpacity: 0.5,}}>
-          <Text style  ={{margin:SIZES.padding,...FONTS.body3}}>Cancel Transaction</Text>
+              shadowColor: 'black',
+              shadowOpacity: 0.5,
+            }}>
+            <Text style={{margin: SIZES.padding, ...FONTS.body3}}>
+              Cancel Transaction
+            </Text>
           </View>
         </TouchableOpacity>
+        </ScrollView>
       </View>
     );
   }
@@ -242,7 +276,7 @@ const styles = StyleSheet.create({
     marginTop: 30,
     padding: 15,
     backgroundColor: '#8ad24e',
-    borderRadius:5,
+    borderRadius: 5,
     shadowOffset: {
       width: 5,
       height: 10,
@@ -251,9 +285,9 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.5,
   },
   buttonTextStyle: {
-    color: COLORS.black,...FONTS.body3,
+    color: COLORS.black,
+    ...FONTS.body3,
     textAlign: 'center',
-    
   },
 });
 export default Notification;
